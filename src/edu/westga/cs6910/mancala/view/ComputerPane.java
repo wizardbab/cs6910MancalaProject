@@ -7,7 +7,9 @@ import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 
 /**
  * Defines the pane that lets the user tell the computer player to
@@ -35,7 +37,7 @@ public class ComputerPane extends GridPane implements InvalidationListener {
 		this.theGame = theGame;
 		
 		// TODO: Add this object as an listener of the Game.
-
+		this.theGame.addListener(this);
 		this.theComputer = this.theGame.getComputerPlayer();
 		
 		this.buildPane();
@@ -43,14 +45,28 @@ public class ComputerPane extends GridPane implements InvalidationListener {
 	
 	private void buildPane() {
 		// TODO: Using the other pane classes as a model, build this pane.
-
+		HBox topBox = new HBox();
+		topBox.getChildren().add(new Label("Computer"));
+		this.add(topBox, 0, 0);
+		
+		this.setHgap(50);
+		
+		int column = 0;
+		this.add(new PitPane(column, true, this.theGame), 0, 1);
+		for (column = 0; column < this.theGame.getBoardSize() / 2 - 1; column++) {
+			this.add(new PitPane(column, false, this.theGame), column + 1, 1);
+		}
 	}
 
 	@Override
 	public void invalidated(Observable arg0) {
 		// TODO: Disable this Pane if it is no longer the computer's turn, enable it if
 		// it is the computer's turn
-
+		if (this.theGame.getIsGameOver()) {
+			this.setDisable(true);
+			return;
+		}
+		
 		boolean myTurn = this.theGame.getCurrentPlayer() == this.theComputer;
 		this.setDisable(!myTurn);
 	}
