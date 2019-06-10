@@ -14,6 +14,9 @@ import javafx.scene.layout.Pane;
  * Defines a GUI for the Mancala game.
  * This class was started by CS6910
  * 
+ * @author En Yang Pang
+ * @version 06/10/2019
+ * 
  */
 public class MancalaPane extends BorderPane {
 	private Game theGame;
@@ -38,6 +41,9 @@ public class MancalaPane extends BorderPane {
 		this.pnContent = new GridPane();
 		
 		this.addFirstPlayerChooserPane(theGame);		
+		this.addComputerPlayerPane(theGame);
+		this.addHumanPlayerPane(theGame);
+		this.addStatusPane(theGame);
 		
 		// TODO: 1. Using the 'first player chooser pane' as a guide
 		//  Create an HBox with the appropriate style, then make a computer
@@ -56,6 +62,30 @@ public class MancalaPane extends BorderPane {
 		this.pnChooseFirstPlayer = new NewGamePane(theGame);
 		topBox.getChildren().add(this.pnChooseFirstPlayer);
 		this.pnContent.add(topBox, 0, 0);
+	}
+	
+	private void addComputerPlayerPane(Game theGame) {
+		HBox topBox = new HBox();
+		topBox.getStyleClass().add("pane-border");
+		this.pnComputerPlayer = new ComputerPane(theGame);
+		topBox.getChildren().add(this.pnComputerPlayer);
+		this.pnContent.add(topBox, 0, 1);
+	}
+	
+	private void addHumanPlayerPane(Game theGame) {
+		HBox topBox = new HBox();
+		topBox.getStyleClass().add("pane-border");
+		this.pnHumanPlayer = new HumanPane(theGame);
+		topBox.getChildren().add(this.pnHumanPlayer);
+		this.pnContent.add(topBox, 0, 2);
+	}
+	
+	private void addStatusPane(Game theGame) {
+		HBox topBox = new HBox();
+		topBox.getStyleClass().add("pane-border");
+		this.pnGameInfo = new StatusPane(theGame);
+		topBox.getChildren().add(this.pnGameInfo);
+		this.pnContent.add(topBox, 0, 3);
 	}
 	
 	/*
