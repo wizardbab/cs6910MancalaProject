@@ -161,7 +161,8 @@ public class MancalaPane extends BorderPane {
 				MancalaPane.this.pnChooseFirstPlayer.setDisable(true);
 				// TODO: Enable the human player pane and start a game
 				//		 with the human playing first.
-
+				MancalaPane.this.pnHumanPlayer.setDisable(false);
+				MancalaPane.this.theGame.startNewGame(NewGamePane.this.theHuman);
 			}
 		}
 	}
