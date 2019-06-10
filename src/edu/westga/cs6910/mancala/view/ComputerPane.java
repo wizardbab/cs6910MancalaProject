@@ -14,6 +14,8 @@ import javafx.scene.layout.GridPane;
  * take its turn and that displays the setup of this player's side
  * of the board
  * 
+ * @author En Yang Pang
+ * @version 06/10/2019
  */
 public class ComputerPane extends GridPane implements InvalidationListener {
 
