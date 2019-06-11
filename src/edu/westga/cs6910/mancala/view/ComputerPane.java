@@ -36,7 +36,7 @@ public class ComputerPane extends GridPane implements InvalidationListener {
 	public ComputerPane(Game theGame) {
 		this.theGame = theGame;
 		
-		// TODO: Add this object as an listener of the Game.
+		// TODO: done Add this object as an listener of the Game.
 		this.theGame.addListener(this);
 		this.theComputer = this.theGame.getComputerPlayer();
 		
@@ -44,7 +44,7 @@ public class ComputerPane extends GridPane implements InvalidationListener {
 	}
 	
 	private void buildPane() {
-		// TODO: Using the other pane classes as a model, build this pane.
+		// TODO: done Using the other pane classes as a model, build this pane.
 		HBox topBox = new HBox();
 		topBox.getChildren().add(new Label("Computer"));
 		this.add(topBox, 0, 0);
@@ -56,11 +56,24 @@ public class ComputerPane extends GridPane implements InvalidationListener {
 		for (column = 0; column < this.theGame.getBoardSize() / 2 - 1; column++) {
 			this.add(new PitPane(column, false, this.theGame), column + 1, 1);
 		}
+		this.createUserInteractionArea();
+	}
+	
+	private void createUserInteractionArea() {
+		GridPane interactionPane = new GridPane();
+		interactionPane.getStyleClass().add("pane-border");
+		interactionPane.getStyleClass().add("bg-highlight-style");
+		
+		this.btnTakeTurn = new Button("Take Turn");
+		this.btnTakeTurn.setOnAction(new TakeTurnListener());
+		interactionPane.add(this.btnTakeTurn, 0, 0);
+		
+		this.add(interactionPane, 4, 1);
 	}
 
 	@Override
 	public void invalidated(Observable arg0) {
-		// TODO: Disable this Pane if it is no longer the computer's turn, enable it if
+		// TODO: done Disable this Pane if it is no longer the computer's turn, enable it if
 		// it is the computer's turn
 		if (this.theGame.getIsGameOver()) {
 			this.setDisable(true);
@@ -84,11 +97,14 @@ public class ComputerPane extends GridPane implements InvalidationListener {
 		 */
 		@Override
 		public void handle(ActionEvent arg0) {
-			// TODO: if the game isn't finished: 
+			// TODO: done if the game isn't finished: 
 			//		 - Tell theGame to play a move.  Because this is
 			//		   the computer playing, just pass -1 as the 
 			//		   pit number
-
+			if (!ComputerPane.this.theGame.getIsGameOver()) {
+				ComputerPane.this.theGame.play(-1);
+			}
+			
 		}
 	}
 }
