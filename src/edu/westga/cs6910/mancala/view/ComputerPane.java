@@ -51,10 +51,10 @@ public class ComputerPane extends GridPane implements InvalidationListener {
 		
 		this.setHgap(50);
 		
-		int column = 0;
+		int column = this.theGame.getBoardSize() - 1;
 		this.add(new PitPane(column, true, this.theGame), 0, 1);
-		for (column = 0; column < this.theGame.getBoardSize() / 2 - 1; column++) {
-			this.add(new PitPane(column, false, this.theGame), column + 1, 1);
+		for (column = this.theGame.getBoardSize() - 1; column > this.theGame.getBoardSize() / 2; column--) {
+			this.add(new PitPane(column - 1, false, this.theGame), this.theGame.getBoardSize() - column, 1);
 		}
 		this.createUserInteractionArea();
 	}
