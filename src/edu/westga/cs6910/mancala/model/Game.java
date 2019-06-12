@@ -7,8 +7,8 @@ import javafx.beans.property.SimpleObjectProperty;
 
 /**
  * Game represents a Mancala game.
- * @author	CS6910
- * @version	Summer 2019
+ * @author	En Yang Pang
+ * @version	06/12/2019
  */
 public class Game implements Observable {
 	private int[] theBoard;
@@ -59,11 +59,16 @@ public class Game implements Observable {
 		if (pitNumber < 0) {
 			throw new IllegalArgumentException("Pit number cannot be negative");
 		}
-		// TODO: Take the stones currently located in the
+		// TODO: done Take the stones currently located in the
 		//		 pit specified and distribute them, one at
 		//		 a time into each pit (including stores)
 		//		 in counter-clockwise order
-
+		int numberOfStones = this.theBoard[pitNumber];
+		this.theBoard[pitNumber] = 0;
+		for (int count = 0; count < numberOfStones; count++) {
+			pitNumber++;
+			this.theBoard[pitNumber] += 1;
+		}
 	}
 
 	/**
@@ -215,11 +220,15 @@ public class Game implements Observable {
 	}
 
 	private void swapWhoseTurn() {
-		// TODO: Swap the players so that the other player becomes 
+		// TODO: done Swap the players so that the other player becomes 
 		//       the current player.  Note that in order to access the
 		//		 object inside of the ObjectProperty, you'll need to use
 		//		 getValue() and setValue()
-
+		if (this.getCurrentPlayer().equals(this.theHuman)) {
+			this.currentPlayerObject.setValue(this.theComputer);
+		} else if (this.getCurrentPlayer().equals(this.theComputer)) {
+			this.currentPlayerObject.setValue(this.theHuman);
+		}
 	}
 	
 	/**
