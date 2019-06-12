@@ -6,6 +6,8 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -118,14 +120,23 @@ public class HumanPane extends GridPane implements InvalidationListener {
 		 * @return the selected pit number, if valid -1, otherwise
 		 */
 		private int getSelectedPitNumber() {
-			// TODO: Check to be sure that the user selected a valid pit
+			// TODO: done Check to be sure that the user selected a valid pit
 			// (one that has a pit number with stones inside)
 			// If it is an invalid pit, show an Alert
 			// to offer a descriptive error message so that they'll
 			// know what went wrong and how to fix it.
 			// Replace the existing return statement with the correct
 			// functionality
-			return -1;
+			
+			int choice = Integer.parseInt(HumanPane.this.cmbPitChoice.getValue().substring(4, 5));
+			if (HumanPane.this.theGame.getStones(choice) < 1) {
+				Alert noStones = new Alert(AlertType.ERROR);
+				noStones.setTitle("Mancala");
+				noStones.setHeaderText("This pit does not contain any stone");
+				noStones.show();
+			}
+			return choice;
+
 		}
 	}
 }
