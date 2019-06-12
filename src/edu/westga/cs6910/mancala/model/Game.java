@@ -59,10 +59,7 @@ public class Game implements Observable {
 		if (pitNumber < 0) {
 			throw new IllegalArgumentException("Pit number cannot be negative");
 		}
-		// TODO: done Take the stones currently located in the
-		//		 pit specified and distribute them, one at
-		//		 a time into each pit (including stores)
-		//		 in counter-clockwise order
+
 		int numberOfStones = this.theBoard[pitNumber];
 		this.theBoard[pitNumber] = 0;
 		for (int count = 0; count < numberOfStones; count++) {
@@ -220,10 +217,6 @@ public class Game implements Observable {
 	}
 
 	private void swapWhoseTurn() {
-		// TODO: done Swap the players so that the other player becomes 
-		//       the current player.  Note that in order to access the
-		//		 object inside of the ObjectProperty, you'll need to use
-		//		 getValue() and setValue()
 		if (this.getCurrentPlayer().equals(this.theHuman)) {
 			this.currentPlayerObject.setValue(this.theComputer);
 		} else if (this.getCurrentPlayer().equals(this.theComputer)) {

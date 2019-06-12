@@ -46,14 +46,6 @@ public class MancalaPane extends BorderPane {
 		this.addHumanPlayerPane(theGame);
 		this.addStatusPane(theGame);
 		
-		// TODO: done 1. Using the 'first player chooser pane' as a guide
-		//  Create an HBox with the appropriate style, then make a computer
-		//	player pane and add it to the HBox. Finally add the HBox to the content pane	
-		
-		// TODO: done 2. Using the other panes as a guide, create and add a human pane
-
-		// TODO: done 3. Using the other panes as a guide, create and add a status pane	
-		
 		this.setCenter(this.pnContent);
 	}
 
@@ -114,18 +106,14 @@ public class MancalaPane extends BorderPane {
 			
 			this.radHumanPlayer = new RadioButton(this.theHuman.getName() + " first");	
 			this.radHumanPlayer.setOnAction(new HumanFirstListener());
-			
-			// TODO: done Instantiate the computer player button and add 
-			//		 ComputerFirstListener as its action listener.
+
 			this.radComputerPlayer = new RadioButton(this.theComputer.getName() + " first");
 			this.radComputerPlayer.setOnAction(new ComputerFirstListener());
 			
-			// TODO: done Create a ToggleGroup and add the 2 radio buttons to it.
 			ToggleGroup firstPlayer = new ToggleGroup();
 			this.radHumanPlayer.setToggleGroup(firstPlayer);
 			this.radComputerPlayer.setToggleGroup(firstPlayer);
 			
-			// TODO: done Add the 2 radio buttons to this pane.
 			this.add(this.radHumanPlayer, 1, 0);
 			this.add(this.radComputerPlayer, 2, 0);
 
@@ -159,8 +147,6 @@ public class MancalaPane extends BorderPane {
 			@Override
 			public void handle(ActionEvent event) {
 				MancalaPane.this.pnChooseFirstPlayer.setDisable(true);
-				// TODO: done Enable the human player pane and start a game
-				//		 with the human playing first.
 				MancalaPane.this.pnHumanPlayer.setDisable(false);
 				MancalaPane.this.theGame.startNewGame(NewGamePane.this.theHuman);
 			}

@@ -3,8 +3,8 @@ package edu.westga.cs6910.mancala.model;
 /**
  * HumanPlayer represents a human player in the game Mancala.
  * 
- * @author	CS6910
- * @version Summer 2016
+ * @author	En Yang Pang
+ * @version 06/12/2019
  */
 public class HumanPlayer extends AbstractPlayer implements Player {
 	

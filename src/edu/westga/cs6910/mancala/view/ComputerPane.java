@@ -36,7 +36,6 @@ public class ComputerPane extends GridPane implements InvalidationListener {
 	public ComputerPane(Game theGame) {
 		this.theGame = theGame;
 		
-		// TODO: done Add this object as an listener of the Game.
 		this.theGame.addListener(this);
 		this.theComputer = this.theGame.getComputerPlayer();
 		
@@ -44,7 +43,6 @@ public class ComputerPane extends GridPane implements InvalidationListener {
 	}
 	
 	private void buildPane() {
-		// TODO: done Using the other pane classes as a model, build this pane.
 		HBox topBox = new HBox();
 		topBox.getChildren().add(new Label("Computer"));
 		this.add(topBox, 0, 0);
@@ -73,8 +71,6 @@ public class ComputerPane extends GridPane implements InvalidationListener {
 
 	@Override
 	public void invalidated(Observable arg0) {
-		// TODO: done Disable this Pane if it is no longer the computer's turn, enable it if
-		// it is the computer's turn
 		if (this.theGame.getIsGameOver()) {
 			this.setDisable(true);
 			return;
@@ -97,10 +93,6 @@ public class ComputerPane extends GridPane implements InvalidationListener {
 		 */
 		@Override
 		public void handle(ActionEvent arg0) {
-			// TODO: done if the game isn't finished: 
-			//		 - Tell theGame to play a move.  Because this is
-			//		   the computer playing, just pass -1 as the 
-			//		   pit number
 			if (!ComputerPane.this.theGame.getIsGameOver()) {
 				ComputerPane.this.theGame.play(-1);
 			}
