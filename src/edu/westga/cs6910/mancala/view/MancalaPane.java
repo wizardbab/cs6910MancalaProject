@@ -43,7 +43,9 @@ public class MancalaPane extends BorderPane {
 		
 		this.addFirstPlayerChooserPane(theGame);		
 		this.addComputerPlayerPane(theGame);
+		this.pnComputerPlayer.setDisable(true);
 		this.addHumanPlayerPane(theGame);
+		this.pnHumanPlayer.setDisable(true);
 		this.addStatusPane(theGame);
 		
 		this.setCenter(this.pnContent);
