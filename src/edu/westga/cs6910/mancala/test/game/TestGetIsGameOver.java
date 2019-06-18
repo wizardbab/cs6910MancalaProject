@@ -2,6 +2,8 @@ package edu.westga.cs6910.mancala.test.game;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import edu.westga.cs6910.mancala.model.Game;
+import edu.westga.cs6910.mancala.model.HumanPlayer;
+
 import org.junit.jupiter.api.Test;
 
 /**
@@ -21,4 +23,13 @@ public class TestGetIsGameOver {
 		assertEquals(false, newGame.getIsGameOver());
 	}
 
+	/**
+	 * Tests that the game state is not game over after a new game is started
+	 */
+	@Test
+	public void testWhenGameFirstStartsIsNotOver() {
+		Game newGame = new Game();
+		newGame.startNewGame(new HumanPlayer("Bob", newGame));
+		assertEquals(newGame.getIsGameOver(), false);
+	}
 }
