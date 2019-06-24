@@ -4,12 +4,16 @@ import edu.westga.cs6910.mancala.model.Game;
 import edu.westga.cs6910.mancala.model.Player;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 /**
  * Defines a GUI for the Mancala game.
@@ -21,6 +25,8 @@ import javafx.scene.layout.Pane;
  */
 public class MancalaPane extends BorderPane {
 	private Game theGame;
+	private VBox contentBox;
+	private MenuBar theMenuBar;
 	private GridPane pnContent;
 	private HumanPane pnHumanPlayer;
 	private ComputerPane pnComputerPlayer;
@@ -40,6 +46,8 @@ public class MancalaPane extends BorderPane {
 		this.theGame = theGame;
 		
 		this.pnContent = new GridPane();
+		this.contentBox = new VBox();
+		this.theMenuBar = new MenuBar();
 		
 		this.addFirstPlayerChooserPane(theGame);		
 		this.addComputerPlayerPane(theGame);
@@ -48,9 +56,36 @@ public class MancalaPane extends BorderPane {
 		this.pnHumanPlayer.setDisable(true);
 		this.addStatusPane(theGame);
 		
-		this.setCenter(this.pnContent);
+		this.addMenuBar();
+		this.contentBox.getChildren().add(this.pnContent);
+		
+		this.setCenter(this.contentBox);
 	}
 
+	private void addMenuBar() {
+		this.addFileMenu();
+		this.addSettingsMenu();
+		this.contentBox.getChildren().add(this.theMenuBar);
+	}
+	
+	private void addFileMenu() {
+		Menu fileMenu = new Menu("File");
+		MenuItem exit = new MenuItem("Exit");
+		fileMenu.getItems().add(exit);
+		this.theMenuBar.getMenus().add(fileMenu);
+	}
+	
+	private void addSettingsMenu() {
+		Menu settingsMenu = new Menu("Settings");
+		Menu computerPlayerMenu = new Menu("Computer Player");
+		MenuItem near = new MenuItem("Near");
+		MenuItem far = new MenuItem("Far");
+		MenuItem random = new MenuItem("Random");
+		computerPlayerMenu.getItems().addAll(near, far, random);
+		settingsMenu.getItems().add(computerPlayerMenu);
+		this.theMenuBar.getMenus().add(settingsMenu);
+	}
+	
 	private void addFirstPlayerChooserPane(Game theGame) {
 		HBox topBox = new HBox();
 		topBox.getStyleClass().add("pane-border");	
