@@ -9,6 +9,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -69,18 +70,32 @@ public class MancalaPane extends BorderPane {
 	}
 	
 	private void addFileMenu() {
-		Menu fileMenu = new Menu("File");
-		MenuItem exit = new MenuItem("Exit");
+		Menu fileMenu = new Menu("_File");
+		fileMenu.setMnemonicParsing(true);
+		MenuItem exit = new MenuItem("E_xit");
+		exit.setMnemonicParsing(true);
+		exit.setAccelerator(KeyCombination.keyCombination("Ctrl+X"));
+		exit.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				System.exit(0);
+			}
+		});
 		fileMenu.getItems().add(exit);
 		this.theMenuBar.getMenus().add(fileMenu);
 	}
 	
 	private void addSettingsMenu() {
-		Menu settingsMenu = new Menu("Settings");
-		Menu computerPlayerMenu = new Menu("Computer Player");
-		MenuItem near = new MenuItem("Near");
-		MenuItem far = new MenuItem("Far");
-		MenuItem random = new MenuItem("Random");
+		Menu settingsMenu = new Menu("_Settings");
+		settingsMenu.setMnemonicParsing(true);
+		Menu computerPlayerMenu = new Menu("Computer _Player");
+		computerPlayerMenu.setMnemonicParsing(true);
+		MenuItem near = new MenuItem("_Near");
+		near.setMnemonicParsing(true);
+		MenuItem far = new MenuItem("F_ar");
+		far.setMnemonicParsing(true);
+		MenuItem random = new MenuItem("_Random");
+		random.setMnemonicParsing(true);
 		computerPlayerMenu.getItems().addAll(near, far, random);
 		settingsMenu.getItems().add(computerPlayerMenu);
 		this.theMenuBar.getMenus().add(settingsMenu);
