@@ -64,6 +64,9 @@ public class Game implements Observable {
 		this.theBoard[pitNumber] = 0;
 		for (int count = 0; count < numberOfStones; count++) {
 			pitNumber++;
+			if (pitNumber >= this.getBoardSize()) {
+				pitNumber = 0;
+			}
 			this.theBoard[pitNumber] += 1;
 		}
 	}
