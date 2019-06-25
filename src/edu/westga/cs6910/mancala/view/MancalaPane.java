@@ -2,7 +2,9 @@ package edu.westga.cs6910.mancala.view;
 
 import edu.westga.cs6910.mancala.model.Game;
 import edu.westga.cs6910.mancala.model.Player;
+import edu.westga.cs6910.mancala.model.strategies.FarStrategy;
 import edu.westga.cs6910.mancala.model.strategies.NearStrategy;
+import edu.westga.cs6910.mancala.model.strategies.RandomStrategy;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Menu;
@@ -97,12 +99,21 @@ public class MancalaPane extends BorderPane {
 			@Override
 			public void handle(ActionEvent event) {
 				MancalaPane.this.theGame.getComputerPlayer().setStrategy(new NearStrategy());
-			}
-		});
+			} });
 		MenuItem far = new MenuItem("F_ar");
 		far.setMnemonicParsing(true);
+		far.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				MancalaPane.this.theGame.getComputerPlayer().setStrategy(new FarStrategy());
+			} });
 		MenuItem random = new MenuItem("_Random");
 		random.setMnemonicParsing(true);
+		random.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				MancalaPane.this.theGame.getComputerPlayer().setStrategy(new RandomStrategy());
+			} });
 		computerPlayerMenu.getItems().addAll(near, far, random);
 		settingsMenu.getItems().add(computerPlayerMenu);
 		this.theMenuBar.getMenus().add(settingsMenu);
