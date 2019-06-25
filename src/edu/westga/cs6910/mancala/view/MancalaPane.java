@@ -2,6 +2,7 @@ package edu.westga.cs6910.mancala.view;
 
 import edu.westga.cs6910.mancala.model.Game;
 import edu.westga.cs6910.mancala.model.Player;
+import edu.westga.cs6910.mancala.model.strategies.NearStrategy;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Menu;
@@ -92,6 +93,12 @@ public class MancalaPane extends BorderPane {
 		computerPlayerMenu.setMnemonicParsing(true);
 		MenuItem near = new MenuItem("_Near");
 		near.setMnemonicParsing(true);
+		near.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				MancalaPane.this.theGame.getComputerPlayer().setStrategy(new NearStrategy());
+			}
+		});
 		MenuItem far = new MenuItem("F_ar");
 		far.setMnemonicParsing(true);
 		MenuItem random = new MenuItem("_Random");

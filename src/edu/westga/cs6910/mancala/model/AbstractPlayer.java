@@ -58,9 +58,6 @@ public abstract class AbstractPlayer implements Player {
 	 * @see Player#takeTurn()
 	 */
 	public void takeTurn(int pitChoice) {
-		while (this.theGame.getStones(pitChoice) == 0) {
-			pitChoice--;
-		}
 		this.theGame.distributeStonesFrom(pitChoice);
 		
 		this.isMyTurn = false;
