@@ -154,7 +154,8 @@ public class Game implements Observable {
 		} else if (!this.currentPlayerObject.getValue().getIsMyTurn()) {
 			this.swapWhoseTurn();
 		} else {
-			this.currentPlayerObject.setValue(this.getCurrentPlayer());
+			this.swapWhoseTurn();
+			this.swapWhoseTurn();
 		}
 	}
 

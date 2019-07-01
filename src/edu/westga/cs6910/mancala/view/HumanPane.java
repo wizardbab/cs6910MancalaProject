@@ -110,7 +110,12 @@ public class HumanPane extends GridPane implements InvalidationListener {
 			if (!HumanPane.this.theGame.getIsGameOver() && pitChoice != -1) {
 				HumanPane.this.theGame.play(pitChoice);
 			}
-
+			if (HumanPane.this.theGame.getHumanPlayer().getIsMyTurn() && !HumanPane.this.theGame.getIsGameOver()) {
+				Alert goAgainAlert = new Alert(Alert.AlertType.INFORMATION);
+				goAgainAlert.setTitle("Move Again");
+				goAgainAlert.setContentText("Your last stone was in the store. You may go again.");
+				goAgainAlert.showAndWait();
+			}
 		}
 
 		/**

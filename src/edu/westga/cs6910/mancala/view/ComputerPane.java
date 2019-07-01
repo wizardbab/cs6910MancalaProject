@@ -6,6 +6,7 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -95,6 +96,12 @@ public class ComputerPane extends GridPane implements InvalidationListener {
 		public void handle(ActionEvent arg0) {
 			if (!ComputerPane.this.theGame.getIsGameOver()) {
 				ComputerPane.this.theGame.play(-1);
+			}
+			if (ComputerPane.this.theGame.getComputerPlayer().getIsMyTurn() && !ComputerPane.this.theGame.getIsGameOver()) {
+				Alert goAgainAlert = new Alert(Alert.AlertType.INFORMATION);
+				goAgainAlert.setTitle("Move Again");
+				goAgainAlert.setContentText("Your last stone was in the store. You may go again.");
+				goAgainAlert.showAndWait();
 			}
 			
 		}
