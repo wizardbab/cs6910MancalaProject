@@ -58,9 +58,18 @@ public abstract class AbstractPlayer implements Player {
 	 * @see Player#takeTurn()
 	 */
 	public void takeTurn(int pitChoice) {
-		this.theGame.distributeStonesFrom(pitChoice);
+		int lastPit = this.theGame.distributeStonesFrom(pitChoice);
+		if (this.theGame.getCurrentPlayer() == this.theGame.getComputerPlayer() && lastPit == this.theGame.getBoardSize() - 1) {
+			this.theGame.getCurrentPlayer().setIsMyTurn(true);
+			System.out.println("Computer put into store");
+		} else if (this.theGame.getCurrentPlayer() == this.theGame.getHumanPlayer() && lastPit == this.theGame.getBoardSize() / 2 - 1) {
+			this.theGame.getCurrentPlayer().setIsMyTurn(true);
+			System.out.println("Human put into store");
+		} else {
+			this.isMyTurn = false;
+			System.out.println("No store");
+		}
 		
-		this.isMyTurn = false;
 	}
 	
 	/**

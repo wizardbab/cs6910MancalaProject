@@ -54,8 +54,9 @@ public class Game implements Observable {
 	 * 
 	 * @param pitNumber	The pit number where the stones
 	 * 					are to be taken
+	 * @return The pit number of the last stone
 	 */
-	public void distributeStonesFrom(int pitNumber) {
+	public int distributeStonesFrom(int pitNumber) {
 		if (pitNumber < 0) {
 			throw new IllegalArgumentException("Pit number cannot be negative");
 		}
@@ -69,6 +70,7 @@ public class Game implements Observable {
 			}
 			this.theBoard[pitNumber] += 1;
 		}
+		return pitNumber;
 	}
 
 	/**
@@ -149,8 +151,10 @@ public class Game implements Observable {
 		Player winner = this.getFinisher();
 		if (winner != null) {
 			this.finishGame(winner);
-		} else {
+		} else if (!this.currentPlayerObject.getValue().getIsMyTurn()) {
 			this.swapWhoseTurn();
+		} else {
+			this.currentPlayerObject.setValue(this.getCurrentPlayer());
 		}
 	}
 
