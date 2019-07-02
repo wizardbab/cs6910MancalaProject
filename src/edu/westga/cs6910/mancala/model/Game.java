@@ -133,6 +133,36 @@ public class Game implements Observable {
 	}
 	
 	/**
+	 * Returns whether the given pit has no stones
+	 * 
+	 * @param pitNumber Pit to be checked
+	 * @return true if 0; false otherwise
+	 */
+	public boolean getIsPitEmpty(int pitNumber) {
+		return this.theBoard[pitNumber] == 0;
+	}
+	
+	/**
+	 * Returns whether the given pit had no stones prior to the round
+	 * 
+	 * @param pitNumber Pit to be checked
+	 * @return true if 1; false otherwise
+	 */
+	public boolean getWasPitEmpty(int pitNumber) {
+		return this.theBoard[pitNumber] == 1;
+	}
+	
+	/**
+	 * Returns the pit that is opposite the given pit
+	 * 
+	 * @param pitNumber Pit that is played
+	 * @return Pit on the other side
+	 */
+	public int getOppositePit(int pitNumber) {
+		return (this.getBoardSize() - 2) - pitNumber;
+	}
+	
+	/**
 	 * Conducts a move in the game, allowing the appropriate Player to
 	 * take a turn. Has no effect if the game is over.
 	 * 
@@ -211,6 +241,16 @@ public class Game implements Observable {
 	 */
 	public int[] getGameBoard() {
 		return this.theBoard.clone();
+	}
+	
+	/**
+	 * Sets the pit number to a given value;
+	 * 
+	 * @param pitNumber Pit number to be changed
+	 * @param value Value to be given to the pit
+	 */
+	public void setBoardPitValue(int pitNumber, int value) {
+		this.theBoard[pitNumber] = value;
 	}
 	
 	/**

@@ -100,10 +100,15 @@ public class ComputerPane extends GridPane implements InvalidationListener {
 			if (ComputerPane.this.theGame.getComputerPlayer().getIsMyTurn() && !ComputerPane.this.theGame.getIsGameOver()) {
 				Alert goAgainAlert = new Alert(Alert.AlertType.INFORMATION);
 				goAgainAlert.setTitle("Move Again");
-				goAgainAlert.setContentText("Your last stone was in the store. You may go again.");
+				goAgainAlert.setContentText("Computer player's last move was in the store. It will go again.");
 				goAgainAlert.showAndWait();
 			}
-			
+			if (ComputerPane.this.theGame.getComputerPlayer().getStoleOpponentStones()) {
+				Alert stoleStonesAlert = new Alert(Alert.AlertType.INFORMATION);
+				stoleStonesAlert.setTitle("Stones Stolen");
+				stoleStonesAlert.setContentText("Computer player has taken your stones. Uh oh!");
+				stoleStonesAlert.showAndWait();
+			}
 		}
 	}
 }

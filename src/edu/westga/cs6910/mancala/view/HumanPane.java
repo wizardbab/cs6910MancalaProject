@@ -116,6 +116,12 @@ public class HumanPane extends GridPane implements InvalidationListener {
 				goAgainAlert.setContentText("Your last stone was in the store. You may go again.");
 				goAgainAlert.showAndWait();
 			}
+			if (HumanPane.this.theGame.getHumanPlayer().getStoleOpponentStones()) {
+				Alert stoleStonesAlert = new Alert(Alert.AlertType.INFORMATION);
+				stoleStonesAlert.setTitle("Stones Stolen");
+				stoleStonesAlert.setContentText("You have taken your opponent's stones. Good work!");
+				stoleStonesAlert.showAndWait();
+			}
 		}
 
 		/**

@@ -9,6 +9,7 @@ package edu.westga.cs6910.mancala.model;
 public abstract class AbstractPlayer implements Player {
 	private String name;
 	private boolean isMyTurn;
+	private boolean stoleOpponentStones;
 	private Game theGame;
 	
 	/**
@@ -27,6 +28,7 @@ public abstract class AbstractPlayer implements Player {
 		
 		this.name = name;
 		this.theGame = theGame;
+		this.stoleOpponentStones = false;
 	}
 	
 	@Override
@@ -43,6 +45,16 @@ public abstract class AbstractPlayer implements Player {
 	 */
 	public String getName() {
 		return this.name;
+	}
+	
+	/**
+	 * Returns whether the Player managed to land on an empty pit and 
+	 * take the opposite stones.
+	 * 
+	 * @return true if yes; false if no
+	 */
+	public boolean getStoleOpponentStones() {
+		return this.stoleOpponentStones;
 	}
 	
 	@Override
@@ -66,10 +78,38 @@ public abstract class AbstractPlayer implements Player {
 			this.theGame.getCurrentPlayer().setIsMyTurn(true);
 			System.out.println("Human put into store");
 		} else {
+			this.checkLastPit(lastPit);
 			this.isMyTurn = false;
 			System.out.println("No store");
 		}
 		
+	}
+	
+	private void checkLastPit(int lastPit) {
+		int oppositePit = this.theGame.getOppositePit(lastPit);
+		int totalStonesWon = 0;
+		
+		boolean isPitEmpty = this.theGame.getWasPitEmpty(lastPit);
+		boolean isOppositePitEmpty = this.theGame.getIsPitEmpty(oppositePit);
+		boolean isComputerSide = (lastPit >= this.theGame.getBoardSize() / 2 && lastPit < this.theGame.getBoardSize()) && this.theGame.getCurrentPlayer() == this.theGame.getComputerPlayer();
+		boolean isHumanSide = (lastPit >= 0 && lastPit < this.theGame.getBoardSize() / 2) && this.theGame.getCurrentPlayer() == this.theGame.getHumanPlayer();
+		this.stoleOpponentStones = false;
+		
+		if (isPitEmpty && !isOppositePitEmpty && isComputerSide) {
+			System.out.println("Entered computer got rule");
+			totalStonesWon = this.theGame.getGameBoard()[lastPit] + this.theGame.getGameBoard()[oppositePit];
+			this.theGame.setBoardPitValue(lastPit, 0);
+			this.theGame.setBoardPitValue(oppositePit, 0);
+			this.theGame.setBoardPitValue(this.theGame.getBoardSize() - 1, this.theGame.getGameBoard()[this.theGame.getBoardSize() - 1] + totalStonesWon);
+			this.stoleOpponentStones = true;
+		} else if (isPitEmpty && !isOppositePitEmpty && isHumanSide) {
+			System.out.println("Entered human got rule");
+			totalStonesWon = this.theGame.getGameBoard()[lastPit] + this.theGame.getGameBoard()[oppositePit];
+			this.theGame.setBoardPitValue(lastPit, 0);
+			this.theGame.setBoardPitValue(oppositePit, 0);
+			this.theGame.setBoardPitValue(this.theGame.getBoardSize() / 2 - 1, this.theGame.getGameBoard()[this.theGame.getBoardSize() / 2 - 1] + totalStonesWon);
+			this.stoleOpponentStones = true;
+		}
 	}
 	
 	/**
