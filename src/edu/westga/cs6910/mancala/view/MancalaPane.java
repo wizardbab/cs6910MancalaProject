@@ -162,10 +162,8 @@ public class MancalaPane extends BorderPane {
 		Optional<String> userInput = startStonesDialog.showAndWait();
 		if (userInput.isPresent()) {
 			this.theGame.setStartingStonesNumber(userInput.get());
-			System.out.println("There is input");
 		} else {
 			this.theGame.setStartingStonesNumber("1");
-			System.out.println("Cancel");
 		}
 	}
 	

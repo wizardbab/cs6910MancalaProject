@@ -73,14 +73,11 @@ public abstract class AbstractPlayer implements Player {
 		int lastPit = this.theGame.distributeStonesFrom(pitChoice);
 		if (this.theGame.getCurrentPlayer() == this.theGame.getComputerPlayer() && lastPit == this.theGame.getBoardSize() - 1) {
 			this.theGame.getCurrentPlayer().setIsMyTurn(true);
-			System.out.println("Computer put into store");
 		} else if (this.theGame.getCurrentPlayer() == this.theGame.getHumanPlayer() && lastPit == this.theGame.getBoardSize() / 2 - 1) {
 			this.theGame.getCurrentPlayer().setIsMyTurn(true);
-			System.out.println("Human put into store");
 		} else {
 			this.checkLastPit(lastPit);
 			this.isMyTurn = false;
-			System.out.println("No store");
 		}
 		
 	}
@@ -96,14 +93,12 @@ public abstract class AbstractPlayer implements Player {
 		this.stoleOpponentStones = false;
 		
 		if (isPitEmpty && !isOppositePitEmpty && isComputerSide) {
-			System.out.println("Entered computer got rule");
 			totalStonesWon = this.theGame.getGameBoard()[lastPit] + this.theGame.getGameBoard()[oppositePit];
 			this.theGame.setBoardPitValue(lastPit, 0);
 			this.theGame.setBoardPitValue(oppositePit, 0);
 			this.theGame.setBoardPitValue(this.theGame.getBoardSize() - 1, this.theGame.getGameBoard()[this.theGame.getBoardSize() - 1] + totalStonesWon);
 			this.stoleOpponentStones = true;
 		} else if (isPitEmpty && !isOppositePitEmpty && isHumanSide) {
-			System.out.println("Entered human got rule");
 			totalStonesWon = this.theGame.getGameBoard()[lastPit] + this.theGame.getGameBoard()[oppositePit];
 			this.theGame.setBoardPitValue(lastPit, 0);
 			this.theGame.setBoardPitValue(oppositePit, 0);
