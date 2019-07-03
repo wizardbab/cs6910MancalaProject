@@ -1,5 +1,7 @@
 package edu.westga.cs6910.mancala.view;
 
+import java.util.Optional;
+
 import edu.westga.cs6910.mancala.model.Game;
 import edu.westga.cs6910.mancala.model.Player;
 import edu.westga.cs6910.mancala.model.strategies.FarStrategy;
@@ -11,6 +13,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
@@ -151,6 +154,21 @@ public class MancalaPane extends BorderPane {
 		this.pnContent.add(topBox, 0, 3);
 	}
 	
+	private void setStartStonesDialog() {
+		TextInputDialog startStonesDialog = new TextInputDialog();
+		startStonesDialog.setTitle("Starting Number of Stones");
+		startStonesDialog.setHeaderText("How many stones in each pit would you like to start the game with?\n(Will default to 1 with invalid input)");
+		startStonesDialog.setContentText("Please enter a number: ");
+		Optional<String> userInput = startStonesDialog.showAndWait();
+		if (userInput.isPresent()) {
+			this.theGame.setStartingStonesNumber(userInput.get());
+			System.out.println("There is input");
+		} else {
+			this.theGame.setStartingStonesNumber("1");
+			System.out.println("Cancel");
+		}
+	}
+	
 	/*
 	 * Defines the panel in which the user selects which Player plays first.
 	 */
@@ -201,6 +219,7 @@ public class MancalaPane extends BorderPane {
 			public void handle(ActionEvent arg0) {
 				MancalaPane.this.pnComputerPlayer.setDisable(false);
 				MancalaPane.this.pnChooseFirstPlayer.setDisable(true);
+				MancalaPane.this.setStartStonesDialog();
 				MancalaPane.this.theGame.startNewGame(NewGamePane.this.theComputer);
 			}
 		}
@@ -218,6 +237,7 @@ public class MancalaPane extends BorderPane {
 			public void handle(ActionEvent event) {
 				MancalaPane.this.pnChooseFirstPlayer.setDisable(true);
 				MancalaPane.this.pnHumanPlayer.setDisable(false);
+				MancalaPane.this.setStartStonesDialog();
 				MancalaPane.this.theGame.startNewGame(NewGamePane.this.theHuman);
 			}
 		}

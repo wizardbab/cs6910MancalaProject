@@ -19,6 +19,7 @@ public class Game implements Observable {
 	
 	private Player theWinner;
 	private boolean isGameOver;
+	private int startingStonesCount;
 
 	/**
 	 * Creates a Mancala Game with the specified Players
@@ -43,7 +44,7 @@ public class Game implements Observable {
 	 * @ensures 					whoseTurn().equals(firstPlayer)
 	 */
 	public void startNewGame(Player firstPlayer) {
-		this.resetBoard();
+		this.resetBoard(this.startingStonesCount);
 		this.currentPlayerObject.setValue(firstPlayer);
 	}
 	
@@ -65,9 +66,15 @@ public class Game implements Observable {
 		this.theBoard[pitNumber] = 0;
 		for (int count = 0; count < numberOfStones; count++) {
 			pitNumber++;
+			if (this.getCurrentPlayer() == this.theComputer && pitNumber == this.getBoardSize() / 2 - 1) {
+				pitNumber++;
+			} else if (this.getCurrentPlayer() == this.theHuman && pitNumber == this.getBoardSize() - 1) {
+				pitNumber++;
+			}
 			if (pitNumber >= this.getBoardSize()) {
 				pitNumber = 0;
 			}
+
 			this.theBoard[pitNumber] += 1;
 		}
 		return pitNumber;
@@ -254,13 +261,22 @@ public class Game implements Observable {
 	}
 	
 	/**
-	 * Sets up the board such that there is exactly 1 stone
-	 * 	in each pit
+	 * Sets the starting number of stones in the pit to the given value.
+	 * 
+	 * @param userInput User's input as a String
 	 */
-	private void resetBoard() {
+	public void setStartingStonesNumber(String userInput) {
+		try {
+			this.startingStonesCount = Integer.parseInt(userInput);
+		} catch (Exception error) {
+			this.startingStonesCount = 1;
+		}
+	}
+	
+	private void resetBoard(int numberOfStones) {
 		for (int index = 0; index < this.theBoard.length / 2 - 1; index++) {
-			this.theBoard[index] = 1;
-			this.theBoard[index + this.theBoard.length / 2] = 1;
+			this.theBoard[index] = numberOfStones;
+			this.theBoard[index + this.theBoard.length / 2] = numberOfStones;
 		}
 	}
 
